@@ -29,7 +29,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="mb-8">
-      {/* Cards de Resumo */}
+      {/* Cards de resumo */}
       <div
         className="grid gap-4 mb-8"
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
