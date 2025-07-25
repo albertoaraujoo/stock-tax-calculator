@@ -1,7 +1,8 @@
 import type { StockSummary } from "@/types";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { MobileStockCard } from "../MobileStockCard/MobileStorckCard";
 
-interface StocksSummaryTableProps {
+export interface StocksSummaryTableProps {
   stocksSummary: StockSummary[];
 }
 
@@ -9,11 +10,13 @@ export function StocksSummaryTable({ stocksSummary }: StocksSummaryTableProps) {
   if (stocksSummary.length === 0) return null;
 
   return (
-    <div className="bg-gray-dark p-8 rounded-lg">
-      <h2 className="text-2xl font-bold mb-6 text-purple-light">
+    <div className="bg-gray-dark p-4 md:p-8 rounded-lg">
+      <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-purple-light">
         Resumo por Ação
       </h2>
-      <div className="overflow-x-auto">
+
+      {/* Tabela para desktop */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b-2 border-gray-dark">
@@ -62,6 +65,13 @@ export function StocksSummaryTable({ stocksSummary }: StocksSummaryTableProps) {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Cards para mobile */}
+      <div className="md:hidden flex overflow-x-auto gap-x-4 pb-2">
+        {stocksSummary.map((stock) => (
+          <MobileStockCard key={stock.symbol} stock={stock} />
+        ))}
       </div>
     </div>
   );

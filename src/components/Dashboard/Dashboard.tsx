@@ -1,8 +1,9 @@
 import type { StockSummary, TaxCalculationResult } from "@/types";
 
-import ResumeCard from "../ResumeCard/ResumeCard";
-import { StocksSummaryTable } from "./StocksSummaryTable";
+import { ResumeCard } from "../ResumeCard/ResumeCard";
+
 import { formatCurrency } from "@/utils/formatCurrency";
+import { StocksSummaryTable } from "../StocksSummaryTable/StocksSummaryTable";
 
 interface DashboardProps {
   stocksSummary: StockSummary[];
@@ -30,10 +31,7 @@ export function Dashboard({ stocksSummary, sellResults }: DashboardProps) {
   return (
     <div className="mb-8">
       {/* Cards de resumo */}
-      <div
-        className="grid gap-4 mb-8"
-        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}
-      >
+      <div className="grid gap-4 mb-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <ResumeCard
           title="TOTAL IR DEVIDO"
           text={formatCurrency(totalTaxDue)}
