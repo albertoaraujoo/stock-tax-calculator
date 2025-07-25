@@ -1,14 +1,11 @@
 import { useState, useCallback, useMemo } from "react";
 
-import type {
-  Operation,
-  Stock,
-  TaxCalculationResult,
-  StockSummary,
-} from "../types";
+import type { Operation, Stock } from "../types";
 
 import { calculateBuyOperation } from "@/utils/calculateBuyOperation";
 import { calculateSellOperation } from "@/utils/calculateSellOperation";
+import { calculateSellResults } from "@/utils/calcultateSellResults";
+import { calculateStocksSummary } from "@/utils/calculateStocksSummary";
 
 export function useStockOperations() {
   const [operations, setOperations] = useState<Operation[]>([]);
@@ -137,70 +134,14 @@ export function useStockOperations() {
     [operations]
   );
 
-  // Calcular resumo de todas as ações
-  const stocksSummary = useMemo((): StockSummary[] => {
-    return Object.values(stocks).map((stock) => ({
-      symbol: stock.symbol,
-      totalOperations: stock.operations.length,
-      totalTaxDue: stock.operations
-        .filter((op) => op.type === "sell")
-        .reduce((total, op) => {
-          const result = calculateSellOperation(
-            {
-              ...stock,
-              operations: stock.operations.slice(
-                0,
-                stock.operations.indexOf(op)
-              ),
-            },
-            op
-          );
-          return total + result.taxDue;
-        }, 0),
-      currentPosition: stock.averageQuantity,
-      averagePrice: stock.averagePrice,
-      accumulatedLoss: stock.accumulatedLoss,
-    }));
-  }, [stocks]);
-
   // Calcular resultados de vendas
-  const sellResults = useMemo((): TaxCalculationResult[] => {
-    const results: TaxCalculationResult[] = [];
+  const sellResults = useMemo(() => calculateSellResults(stocks), [stocks]);
 
-    Object.values(stocks).forEach((stock) => {
-      let tempStock: Stock = {
-        ...stock,
-        operations: [] as Operation[],
-      };
-
-      stock.operations.forEach((operation) => {
-        if (operation.type === "buy") {
-          const { newAveragePrice, newAverageQuantity } = calculateBuyOperation(
-            tempStock,
-            operation
-          );
-          tempStock = {
-            ...tempStock,
-            averagePrice: newAveragePrice,
-            averageQuantity: newAverageQuantity,
-            operations: [...tempStock.operations, operation],
-          };
-        } else {
-          const result = calculateSellOperation(tempStock, operation);
-          results.push(result);
-          tempStock = {
-            ...tempStock,
-            averagePrice: result.newAveragePrice,
-            averageQuantity: result.newAverageQuantity,
-            accumulatedLoss: result.newAccumulatedLoss,
-            operations: [...tempStock.operations, operation],
-          };
-        }
-      });
-    });
-
-    return results;
-  }, [stocks]);
+  // Calcular resumo de todas as ações
+  const stocksSummary = useMemo(
+    () => calculateStocksSummary(stocks, sellResults, operations),
+    [stocks, sellResults, operations]
+  );
 
   return {
     operations,

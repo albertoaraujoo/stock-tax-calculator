@@ -1,5 +1,5 @@
-import OperationListTable from "../OperationListTable/OperationListTable";
 import type { Operation } from "@/types";
+import { OperationListTable } from "../OperationListTable/OperationListTable";
 
 interface OperationListProps {
   operations: Operation[];
@@ -20,7 +20,7 @@ export function OperationList({
 
   return (
     <div className="bg-gray-dark p-8 rounded-lg">
-      <h2 className="text-2xl font-bold mb-6 text-purple-light">
+      <h2 className="text-xl md:text-2xl font-bold mb-6 text-purple-light">
         Histórico de Operações ( {operations.length} )
       </h2>
       <OperationListTable
