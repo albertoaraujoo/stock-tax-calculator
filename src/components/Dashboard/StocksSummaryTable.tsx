@@ -1,19 +1,16 @@
-import React from "react";
 import type { StockSummary } from "@/types";
-import { formatCurrency } from "@/utils/taxCalculator";
+import { formatCurrency } from "@/utils/formatCurrency";
 
 interface StocksSummaryTableProps {
   stocksSummary: StockSummary[];
 }
 
-const StocksSummaryTable: React.FC<StocksSummaryTableProps> = ({
-  stocksSummary,
-}) => {
+export function StocksSummaryTable({ stocksSummary }: StocksSummaryTableProps) {
   if (stocksSummary.length === 0) return null;
 
   return (
-    <div className="bg-black p-8 rounded-lg">
-      <h2 className="text-purple-light mb-6 text-xl font-semibold">
+    <div className="bg-gray-dark p-8 rounded-lg">
+      <h2 className="text-2xl font-bold mb-6 text-purple-light">
         Resumo por Ação
       </h2>
       <div className="overflow-x-auto">
@@ -68,6 +65,4 @@ const StocksSummaryTable: React.FC<StocksSummaryTableProps> = ({
       </div>
     </div>
   );
-};
-
-export default StocksSummaryTable;
+}
