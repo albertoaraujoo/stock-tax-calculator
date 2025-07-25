@@ -1,26 +1,4 @@
-import type { Stock, Operation, TaxCalculationResult } from "@/types";
-
-/**
- * Calcula o novo preço médio e quantidade após uma compra
- * PM = (PM * QM + PC * QC + TC) / (QM + QC)
- * QM = QM + QC
- */
-export function calculateBuyOperation(
-  stock: Stock,
-  operation: Operation
-): { newAveragePrice: number; newAverageQuantity: number } {
-  const { averagePrice: PM, averageQuantity: QM } = stock;
-  const { price: PC, quantity: QC, brokerageFee: TC } = operation;
-
-  const newAverageQuantity = QM + QC;
-  const newAveragePrice =
-    newAverageQuantity > 0 ? (PM * QM + PC * QC + TC) / newAverageQuantity : 0;
-
-  return {
-    newAveragePrice,
-    newAverageQuantity,
-  };
-}
+import type { Operation, Stock, TaxCalculationResult } from "@/types";
 
 /**
  * Calcula o resultado auferido, IR devido e atualiza PA
@@ -63,22 +41,4 @@ export function calculateSellOperation(
     newAveragePrice: PM, // PM não muda na venda
     newAverageQuantity,
   };
-}
-
-/**
- * Formata valores monetários para exibição
- */
-export function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(value);
-}
-
-/**
- * Formata números para exibição com casas decimais
- */
-
-export function formatNumber(value: number, decimals: number = 2): string {
-  return value.toFixed(decimals);
 }

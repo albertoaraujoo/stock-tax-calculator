@@ -1,16 +1,16 @@
 import { useState, useCallback, useMemo } from "react";
+
 import type {
   Operation,
   Stock,
   TaxCalculationResult,
   StockSummary,
 } from "../types";
-import {
-  calculateBuyOperation,
-  calculateSellOperation,
-} from "../utils/taxCalculator";
 
-export const useStockOperations = () => {
+import { calculateBuyOperation } from "@/utils/calculateBuyOperation";
+import { calculateSellOperation } from "@/utils/calculateSellOperation";
+
+export function useStockOperations() {
   const [operations, setOperations] = useState<Operation[]>([]);
   const [stocks, setStocks] = useState<Record<string, Stock>>({});
 
@@ -210,4 +210,4 @@ export const useStockOperations = () => {
     addOperation,
     removeOperation,
   };
-};
+}

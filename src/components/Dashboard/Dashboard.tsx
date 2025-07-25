@@ -1,19 +1,15 @@
-import React from "react";
 import type { StockSummary, TaxCalculationResult } from "@/types";
-import { formatCurrency } from "@/utils/taxCalculator";
 
 import ResumeCard from "../ResumeCard/ResumeCard";
-import StocksSummaryTable from "./StocksSummaryTable";
+import { StocksSummaryTable } from "./StocksSummaryTable";
+import { formatCurrency } from "@/utils/formatCurrency";
 
 interface DashboardProps {
   stocksSummary: StockSummary[];
   sellResults: TaxCalculationResult[];
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({
-  stocksSummary,
-  sellResults,
-}) => {
+export function Dashboard({ stocksSummary, sellResults }: DashboardProps) {
   const totalTaxDue = sellResults.reduce(
     (sum, result) => sum + result.taxDue,
     0
@@ -26,6 +22,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
     (sum, stock) => sum + stock.currentPosition * stock.averagePrice,
     0
   );
+
+  const totalStocksInPortfolio = stocksSummary.filter(
+    (stock) => stock.currentPosition > 0
+  ).length;
 
   return (
     <div className="mb-8">
@@ -59,7 +59,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
         <ResumeCard
           title="AÇÕES EM CARTEIRA"
-          text={formatCurrency(totalCurrentPosition)}
+          text={totalStocksInPortfolio.toString()}
           borderColor="gray"
           titleColor="gray"
           textColor="white"
@@ -70,4 +70,4 @@ export const Dashboard: React.FC<DashboardProps> = ({
       <StocksSummaryTable stocksSummary={stocksSummary} />
     </div>
   );
-};
+}

@@ -6,13 +6,13 @@ interface ResumeCardProps {
   title: string;
 }
 
-const ResumeCard = ({
+export function ResumeCard({
   titleColor,
   textColor,
   borderColor,
   title,
   text,
-}: ResumeCardProps) => {
+}: ResumeCardProps) {
   const borderClass =
     borderColor === "purple"
       ? "border-purple"
@@ -35,11 +35,9 @@ const ResumeCard = ({
         : "text-white";
 
   return (
-    <div className={`bg-black p-6 rounded-lg border-2 ${borderClass}`}>
+    <div className={`bg-gray-dark p-6 rounded-lg border-2 ${borderClass}`}>
       <h3 className={`mb-2 text-sm font-medium ${titleClass}`}>{title}</h3>
       <p className={`text-2xl font-bold ${textClass}`}>{text}</p>
     </div>
   );
-};
-
-export default ResumeCard;
+}

@@ -30,7 +30,7 @@ export function OperationForm({ onAddOperation }: OperationFormProps) {
     },
   });
 
-  const onSubmit = (data: OperationFormData) => {
+  function onSubmit(data: OperationFormData) {
     onAddOperation(data);
     reset({
       date: new Date().toISOString().split("T")[0],
@@ -40,11 +40,13 @@ export function OperationForm({ onAddOperation }: OperationFormProps) {
       quantity: 0,
       brokerageFee: 0,
     });
-  };
+  }
 
   return (
-    <div className="py-8 px-0 rounded-lg mb-8">
-      <h2 className="text-2xl font-bold mb-6 text-white">Nova Operação</h2>
+    <div className="p-8 rounded-lg mb-8 bg-gray-dark">
+      <h2 className="text-2xl font-bold mb-6 text-purple-light">
+        Nova Operação
+      </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

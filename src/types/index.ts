@@ -1,7 +1,7 @@
 export interface Operation {
   id: string;
   date: string;
-  type: 'buy' | 'sell';
+  type: "buy" | "sell";
   stockSymbol: string;
   price: number;
   quantity: number;
@@ -33,4 +33,5 @@ export interface StockSummary {
   currentPosition: number;
   averagePrice: number;
   accumulatedLoss: number;
+  operations: Operation[];
 }
