@@ -2,11 +2,18 @@ import type { StockSummary } from "@/types";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { MobileStockCard } from "../MobileStockCard/MobileStorckCard";
 
+// import { useState } from "react";
+
 export interface StocksSummaryTableProps {
   stocksSummary: StockSummary[];
+  viewChoice: "resume" | "chart";
+  // onViewChange: (view: "resume" | "chart") => void;
 }
 
 export function StocksSummaryTable({ stocksSummary }: StocksSummaryTableProps) {
+  // const [viewChoice, setViewChoice] =
+  //   useState<StocksSummaryTableProps["viewChoice"]>("resume");
+
   if (stocksSummary.length === 0) return null;
 
   return (
