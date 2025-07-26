@@ -1,7 +1,7 @@
 import type { StockSummary } from "@/types";
 import { ResumeSectionChart } from "../ResumeSectionChart/ResumeSectionChart";
-import { useState } from "react";
 import { ResumeSectionTable } from "../ResumeSectionTable/ResumeSectionTable";
+import { useState } from "react";
 
 export interface StocksSummaryTableProps {
   stocksSummary: StockSummary[];
@@ -14,7 +14,7 @@ export function StocksSummaryTable({
 }: StocksSummaryTableProps) {
   const [viewChoice, setViewChoice] = useState<"resume" | "chart">(initialView);
 
-  if (stocksSummary.length === 0) return null;
+  // if (stocksSummary.length === 0) return null;
 
   return (
     <div className="bg-gray-dark p-4 md:p-8 rounded-lg">
