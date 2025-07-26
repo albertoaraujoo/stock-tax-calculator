@@ -39,17 +39,17 @@ export function ResumeSectionChart({ stocks }: DesktopChartProps) {
   {
     /* Mock data for testing */
   }
-  //   const dataMock = mockStocksSummary
-  //     .map((stock) =>
-  //       stock.totalTaxDue > 0
-  //         ? {
-  //             symbol: stock.symbol,
-  //             ir: stock.totalTaxDue,
-  //             fill: "#A259FF",
-  //           }
-  //         : null
-  //     )
-  //     .filter(Boolean);
+  // const dataMock = mockStocksSummary
+  //   .map((stock) =>
+  //     stock.totalTaxDue > 0
+  //       ? {
+  //           symbol: stock.symbol,
+  //           ir: stock.totalTaxDue,
+  //           fill: "#A259FF",
+  //         }
+  //       : null
+  //   )
+  //   .filter(Boolean);
 
   const chartData = stocks
     .map((stock) =>
@@ -73,13 +73,16 @@ export function ResumeSectionChart({ stocks }: DesktopChartProps) {
       </CardHeader>
       <CardContent>
         <div
-          className="w-full overflow-y-auto"
+          className="w-full h-[150px] overflow-y-auto"
           style={{
             scrollbarColor: "#A259FF #232136",
             scrollbarWidth: "thin",
           }}
         >
-          <ChartContainer config={chartConfig} className="w-full h-[150px]">
+          <ChartContainer
+            config={chartConfig}
+            className="w-[280px] md:w-full h-[500px] md:h-auto"
+          >
             <BarChart
               accessibilityLayer
               data={chartData}
@@ -125,7 +128,7 @@ export function ResumeSectionChart({ stocks }: DesktopChartProps) {
           IR total devido:{" "}
           <span className="text-purple-light font-bold">
             {chartData
-              .reduce((acc, item) => acc + item.ir, 0)
+              .reduce((acc, item) => acc + (item ? item.ir : 0), 0)
               .toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
