@@ -1,18 +1,18 @@
 import type { StockSummary } from "@/types";
-import { formatCurrency } from "@/utils/formatCurrency";
-import { MobileStockCard } from "../MobileStockCard/MobileStorckCard";
-
-// import { useState } from "react";
+import { ResumeSectionChart } from "../ResumeSectionChart/ResumeSectionChart";
+import { useState } from "react";
+import { ResumeSectionTable } from "../ResumeSectionTable/ResumeSectionTable";
 
 export interface StocksSummaryTableProps {
   stocksSummary: StockSummary[];
-  viewChoice: "resume" | "chart";
-  // onViewChange: (view: "resume" | "chart") => void;
+  viewChoice?: "resume" | "chart";
 }
 
-export function StocksSummaryTable({ stocksSummary }: StocksSummaryTableProps) {
-  // const [viewChoice, setViewChoice] =
-  //   useState<StocksSummaryTableProps["viewChoice"]>("resume");
+export function StocksSummaryTable({
+  stocksSummary,
+  viewChoice: initialView = "resume",
+}: StocksSummaryTableProps) {
+  const [viewChoice, setViewChoice] = useState<"resume" | "chart">(initialView);
 
   if (stocksSummary.length === 0) return null;
 
@@ -22,64 +22,38 @@ export function StocksSummaryTable({ stocksSummary }: StocksSummaryTableProps) {
         Resumo por Ação
       </h2>
 
-      {/* Tabela para desktop */}
-      <div className="hidden md:block overflow-x-auto">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="border-b-2 border-gray-dark">
-              <th className="text-white p-4 text-left">Ação</th>
-              <th className="text-white p-4 text-right">Operações</th>
-              <th className="text-white p-4 text-right">Posição Atual</th>
-              <th className="text-white p-4 text-right">Preço Médio</th>
-              <th className="text-white p-4 text-right">Prejuízo Acumulado</th>
-              <th className="text-white p-4 text-right">IR Total Devido</th>
-            </tr>
-          </thead>
-          <tbody>
-            {stocksSummary.map((stock) => (
-              <tr key={stock.symbol} className="border-b border-gray-dark">
-                <td className="text-purple-light p-4 font-bold">
-                  {stock.symbol}
-                </td>
-                <td className="text-white p-4 text-right">
-                  {stock.totalOperations}
-                </td>
-                <td
-                  className={`p-4 text-right ${stock.currentPosition > 0 ? "text-success" : "text-gray"}`}
-                >
-                  {stock.currentPosition > 0
-                    ? stock.currentPosition.toLocaleString("pt-BR")
-                    : "-"}
-                </td>
-                <td className="text-white p-4 text-right">
-                  {stock.averagePrice > 0
-                    ? formatCurrency(stock.averagePrice)
-                    : "-"}
-                </td>
-                <td
-                  className={`p-4 text-right ${stock.accumulatedLoss > 0 ? "text-danger" : "text-gray"}`}
-                >
-                  {stock.accumulatedLoss > 0
-                    ? formatCurrency(stock.accumulatedLoss)
-                    : "-"}
-                </td>
-                <td
-                  className={`p-4 text-right font-bold ${stock.totalTaxDue > 0 ? "text-danger" : "text-success"}`}
-                >
-                  {formatCurrency(stock.totalTaxDue)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Botões de escolha de visualização */}
+      <div className="flex gap-2 mb-6">
+        <button
+          className={`px-4 py-2 rounded font-bold transition ${
+            viewChoice === "resume"
+              ? "bg-purple-light text-white"
+              : "bg-gray text-purple-light hover:bg-purple-light/20"
+          }`}
+          onClick={() => setViewChoice("resume")}
+        >
+          Resumo
+        </button>
+        <button
+          className={`px-4 py-2 rounded font-bold transition ${
+            viewChoice === "chart"
+              ? "bg-purple-light text-white"
+              : "bg-gray text-purple-light hover:bg-purple-light/20"
+          }`}
+          onClick={() => setViewChoice("chart")}
+        >
+          Gráfico
+        </button>
       </div>
 
-      {/* Cards para mobile */}
-      <div className="md:hidden flex overflow-x-auto gap-x-4 pb-2">
-        {stocksSummary.map((stock) => (
-          <MobileStockCard key={stock.symbol} stock={stock} />
-        ))}
-      </div>
+      {/* Visualização condicional */}
+      {viewChoice === "resume" ? (
+        <ResumeSectionTable stocks={stocksSummary} />
+      ) : (
+        <div className="mt-4">
+          <ResumeSectionChart stocks={stocksSummary} />
+        </div>
+      )}
     </div>
   );
 }

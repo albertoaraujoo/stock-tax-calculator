@@ -35,7 +35,7 @@ const chartConfig: ChartConfig = {
   },
 };
 
-export function DesktopChart({ stocks }: DesktopChartProps) {
+export function ResumeSectionChart({ stocks }: DesktopChartProps) {
   {
     /* Mock data for testing */
   }
