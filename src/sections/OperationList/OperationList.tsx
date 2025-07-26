@@ -12,21 +12,29 @@ export function OperationList({
 }: OperationListProps) {
   if (operations.length === 0) {
     return (
-      <div className="bg-gray-dark p-8 rounded-lg text-center">
+      <section className="mb-8 bg-gray-dark p-8 rounded-lg text-center">
         <p className="text-gray text-lg">Nenhuma operação cadastrada ainda.</p>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="bg-gray-dark p-8 rounded-lg">
-      <h2 className="text-xl md:text-2xl font-bold mb-6 text-purple-light">
-        Histórico de Operações ( {operations.length} )
-      </h2>
+    <section
+      className="bg-gray-dark p-8 rounded-lg mb-8"
+      aria-labelledby="operation-history-title"
+    >
+      <header>
+        <h2
+          id="operation-history-title"
+          className="text-xl md:text-2xl font-bold mb-6 text-purple-light"
+        >
+          Histórico de Operações ({operations.length})
+        </h2>
+      </header>
       <OperationListTable
         operations={operations}
         onRemoveOperation={onRemoveOperation}
       />
-    </div>
+    </section>
   );
 }

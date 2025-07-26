@@ -1,6 +1,6 @@
 import type { Operation } from "@/types";
 import { formatCurrency } from "@/utils/formatCurrency";
-import { MobileOperationCard } from "../MobileOperationCard/MobileOperationCard";
+import { MobileOperationCard } from "../../components/MobileOperationCard/MobileOperationCard";
 
 interface OperationListProps {
   operations: Operation[];
@@ -17,7 +17,7 @@ export function OperationListTable({
 
   return (
     <>
-      <div className="hidden md:block overflow-x-auto max-h-[420px] md:max-h-[600px] overflow-y-auto rounded-lg">
+      <section className="hidden md:block overflow-x-auto max-h-[420px] md:max-h-[600px] overflow-y-auto rounded-lg">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b-2 border-gray-dark">
@@ -83,8 +83,8 @@ export function OperationListTable({
             })}
           </tbody>
         </table>
-      </div>
-      <div className="md:hidden flex overflow-x-auto gap-x-4 pb-2">
+      </section>
+      <section className="md:hidden flex overflow-x-auto gap-x-4 pb-2">
         {sortedOperations.map((operation) => (
           <MobileOperationCard
             key={operation.id}
@@ -92,7 +92,7 @@ export function OperationListTable({
             onRemove={onRemoveOperation}
           />
         ))}
-      </div>
+      </section>
     </>
   );
 }
