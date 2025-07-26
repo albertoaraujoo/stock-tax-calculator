@@ -5,7 +5,7 @@ import {
   operationSchema,
   type OperationFormData,
 } from "../../schemas/operationSchema";
-import FormErrorMessage from "../FormErrorMessage/FormErrorMessage";
+import FormErrorMessage from "../../components/FormErrorMessage/FormErrorMessage";
 
 interface OperationFormProps {
   onAddOperation: (operation: Omit<Operation, "id" | "createdAt">) => void;
@@ -43,10 +43,18 @@ export function OperationForm({ onAddOperation }: OperationFormProps) {
   }
 
   return (
-    <div className="p-8 rounded-lg mb-8 bg-gray-dark">
-      <h2 className="text-2xl font-bold mb-6 text-purple-light">
-        Nova Operação
-      </h2>
+    <section
+      className="p-8 rounded-lg mb-8 bg-gray-dark"
+      aria-labelledby="operation-form-title"
+    >
+      <header>
+        <h2
+          id="operation-form-title"
+          className="text-xl md:text-2xl font-bold mb-6 text-purple-light"
+        >
+          Adicionar Nova Operação
+        </h2>
+      </header>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -152,6 +160,6 @@ export function OperationForm({ onAddOperation }: OperationFormProps) {
           Adicionar Operação
         </button>
       </form>
-    </div>
+    </section>
   );
 }

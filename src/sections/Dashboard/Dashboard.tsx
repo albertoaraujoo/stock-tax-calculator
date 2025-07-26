@@ -1,9 +1,9 @@
 import type { StockSummary, TaxCalculationResult } from "@/types";
 
-import { ResumeCard } from "../ResumeCard/ResumeCard";
+import { ResumeCard } from "../../components/ResumeCard/ResumeCard";
 
 import { formatCurrency } from "@/utils/formatCurrency";
-import { StocksSummaryTable } from "../StocksSummaryTable/StocksSummaryTable";
+import { StocksSummaryTable } from "../../components/StocksSummaryTable/StocksSummaryTable";
 
 interface DashboardProps {
   stocksSummary: StockSummary[];
@@ -29,7 +29,15 @@ export function Dashboard({ stocksSummary, sellResults }: DashboardProps) {
   ).length;
 
   return (
-    <div className="mb-8">
+    <section className="mb-8" aria-labelledby="dashboard-title">
+      <header>
+        <h2
+          id="dashboard-title"
+          className="text-xl md:text-2xl font-bold mb-6 text-purple-light"
+        >
+          Resumo Geral
+        </h2>
+      </header>
       {/* Cards de resumo */}
       <div className="grid gap-4 mb-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <ResumeCard
@@ -66,6 +74,6 @@ export function Dashboard({ stocksSummary, sellResults }: DashboardProps) {
 
       {/* Resumo por Ação */}
       <StocksSummaryTable stocksSummary={stocksSummary} />
-    </div>
+    </section>
   );
 }
