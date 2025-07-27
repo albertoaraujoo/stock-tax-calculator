@@ -172,24 +172,6 @@ npm run build
 # Arquivos prontos em /dist
 ```
 
-## 🛣️ Roadmap futuro
-
-### Funcionalidades planejadas
-
-- [ ] **Upload de CSV** com operações reais
-- [ ] **Cadastro manual** de operações
-- [ ] **Persistência local** dos dados
-- [ ] **Relatórios mensais** em PDF
-- [ ] **Calculadora de FIIs**
-- [ ] **Backup na nuvem**
-
-### Melhorias técnicas
-
-- [ ] **Tests** com Vitest
-- [ ] **Storybook** para componentes
-- [ ] **PWA** para uso offline
-- [ ] **Dark/Light mode** toggle
-
 ## 🤝 Como contribuir
 
 1. Fork o projeto
