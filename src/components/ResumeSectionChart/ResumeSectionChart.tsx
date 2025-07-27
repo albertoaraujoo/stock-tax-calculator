@@ -20,12 +20,14 @@ import type { StockSummary } from "@/types";
 {
   /* Importando o mock para testes */
 }
-// import { mockStocksSummary } from "@/mocks/mockStocksSummary";
+import { mockStocksSummary } from "@/mocks/mockStocksSummary";
+import { getTopStocksIR } from "@/utils/getTopStocksIR";
 
 export const description = "Gráfico de IR devido por ação";
 
-interface DesktopChartProps {
+interface ResumeSectionChart {
   stocks: StockSummary[];
+  isMockData?: boolean;
 }
 
 const chartConfig: ChartConfig = {
@@ -35,33 +37,18 @@ const chartConfig: ChartConfig = {
   },
 };
 
-export function ResumeSectionChart({ stocks }: DesktopChartProps) {
+export function ResumeSectionChart({
+  stocks,
+  isMockData = false, // para fazer o mock dos dados, coloque em true
+}: ResumeSectionChart) {
   {
     /* Mock data for testing */
   }
-  // const dataMock = mockStocksSummary
-  //   .map((stock) =>
-  //     stock.totalTaxDue > 0
-  //       ? {
-  //           symbol: stock.symbol,
-  //           ir: stock.totalTaxDue,
-  //           fill: "#A259FF",
-  //         }
-  //       : null
-  //   )
-  //   .filter(Boolean);
+  const dataMock = getTopStocksIR(mockStocksSummary, 6);
 
-  const chartData = stocks
-    .map((stock) =>
-      stock.totalTaxDue > 0
-        ? {
-            symbol: stock.symbol,
-            ir: stock.totalTaxDue,
-            fill: "#A259FF",
-          }
-        : null
-    )
-    .filter(Boolean);
+  const chartData = getTopStocksIR(stocks, 6);
+
+  const finalChartData = isMockData ? dataMock : chartData;
 
   return (
     <Card className="bg-gray-dark">
@@ -73,7 +60,6 @@ export function ResumeSectionChart({ stocks }: DesktopChartProps) {
       </CardHeader>
       <CardContent>
         <div
-          className="w-full h-[150px] overflow-y-auto"
           style={{
             scrollbarColor: "#A259FF #232136",
             scrollbarWidth: "thin",
@@ -81,11 +67,11 @@ export function ResumeSectionChart({ stocks }: DesktopChartProps) {
         >
           <ChartContainer
             config={chartConfig}
-            className="w-[280px] md:w-full h-[500px] md:h-auto"
+            className="h-[300px] w-[280px] md:w-full"
           >
             <BarChart
               accessibilityLayer
-              data={chartData}
+              data={finalChartData}
               layout="vertical"
               margin={{
                 left: 0,
@@ -125,10 +111,10 @@ export function ResumeSectionChart({ stocks }: DesktopChartProps) {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium text-gray">
-          IR total devido:{" "}
+          Total devido:{" "}
           <span className="text-purple-light font-bold">
-            {chartData
-              .reduce((acc, item) => acc + (item ? item.ir : 0), 0)
+            {finalChartData
+              .reduce((acc, item) => acc + item.ir, 0)
               .toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
@@ -137,7 +123,7 @@ export function ResumeSectionChart({ stocks }: DesktopChartProps) {
           <TrendingUp className="h-4 w-4" />
         </div>
         <div className="text-gray leading-none">
-          Mostrando IR devido por ação cadastrada
+          Mostrando o Top 6 de ações com maior IR devido
         </div>
       </CardFooter>
     </Card>

@@ -14,8 +14,6 @@ function App() {
     operations,
   } = useStockOperations();
 
-  console.log(stocksSummary);
-
   return (
     <div className="min-h-screen px-8 py-12 bg-dark flex flex-col gap-16">
       <div className="max-w-7xl mx-auto">

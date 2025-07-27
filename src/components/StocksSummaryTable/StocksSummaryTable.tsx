@@ -14,7 +14,7 @@ export function StocksSummaryTable({
 }: StocksSummaryTableProps) {
   const [viewChoice, setViewChoice] = useState<"resume" | "chart">(initialView);
 
-  // if (stocksSummary.length === 0) return null;
+  if (stocksSummary.length === 0) return null;
 
   return (
     <div className="bg-gray-dark p-4 md:p-8 rounded-lg">
@@ -42,7 +42,7 @@ export function StocksSummaryTable({
           }`}
           onClick={() => setViewChoice("chart")}
         >
-          Gráfico
+          Gráfico Top 6 IR
         </button>
       </div>
 
@@ -50,9 +50,7 @@ export function StocksSummaryTable({
       {viewChoice === "resume" ? (
         <ResumeSectionTable stocks={stocksSummary} />
       ) : (
-        <div className="mt-4">
-          <ResumeSectionChart stocks={stocksSummary} />
-        </div>
+        <ResumeSectionChart stocks={stocksSummary} />
       )}
     </div>
   );
