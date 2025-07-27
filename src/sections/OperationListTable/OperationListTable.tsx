@@ -84,7 +84,7 @@ export function OperationListTable({
           </tbody>
         </table>
       </section>
-      <section className="md:hidden flex overflow-x-auto gap-x-4 pb-2">
+      <section className="md:hidden max-w-[300px] md:w-full flex overflow-x-auto gap-x-4 pb-2">
         {sortedOperations.map((operation) => (
           <MobileOperationCard
             key={operation.id}

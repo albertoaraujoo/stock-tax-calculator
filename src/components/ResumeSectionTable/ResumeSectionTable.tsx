@@ -62,7 +62,7 @@ export function ResumeSectionTable({ stocks }: StocksSummaryDesktopProps) {
       </div>
 
       {/* Cards para mobile */}
-      <div className="md:hidden flex overflow-x-auto gap-x-4 pb-2">
+      <div className="md:hidden max-w-[300px] md:w-full flex overflow-x-auto gap-x-4 pb-2">
         {stocks.map((stock) => (
           <MobileStockCard key={stock.symbol} stock={stock} />
         ))}
