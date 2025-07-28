@@ -186,7 +186,7 @@ MIT License - veja [LICENSE](LICENSE) para detalhes.
 
 ## 👨‍💻 Desenvolvedor
 
-**[SEU_NOME]**
+**Alberto Araújo**
 
 - GitHub: [@albertoaraujoo](https://github.com/albertoaraujoo)
 - LinkedIn: [Alberto Araújo](https://www.linkedin.com/in/albertoaraujoo/)
