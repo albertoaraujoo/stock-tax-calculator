@@ -100,7 +100,7 @@ src/
 
 ```bash
 # Clone o repositório
-git clone [SEU_REPOSITORIO]
+git clone https://github.com/albertoaraujoo/stock-tax-calculator
 cd stock-tax-calculator
 
 # Instale dependências
